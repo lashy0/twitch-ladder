@@ -1,0 +1,33 @@
+from fastapi import APIRouter
+
+from app.api.v1.routes import channels, health, ladder, scan_jobs, videos
+
+router = APIRouter()
+
+router.include_router(
+    channels.router,
+    prefix="/channels",
+    tags=["channels"],
+)
+
+router.include_router(
+    health.router,
+    prefix="/health",
+    tags=["health"],
+)
+
+router.include_router(
+    ladder.router,
+    tags=["ladder"],
+)
+
+router.include_router(
+    scan_jobs.router,
+    prefix="/scan-jobs",
+    tags=["scan-jobs"],
+)
+
+router.include_router(
+    videos.router,
+    tags=["videos"],
+)
