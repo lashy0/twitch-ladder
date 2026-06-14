@@ -1,11 +1,46 @@
 services:
+  web:
+    container_name: twitch-ladder-web
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+      target: dev
+    command: npm run web:dev
+    environment:
+      NEXT_TELEMETRY_DISABLED: "1"
+      WATCHPACK_POLLING: "true"
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./apps/web/src:/app/apps/web/src
+      - ./apps/web/public:/app/apps/web/public
+      - ./apps/web/components.json:/app/apps/web/components.json
+      - ./apps/web/next.config.ts:/app/apps/web/next.config.ts
+      - ./apps/web/package.json:/app/apps/web/package.json
+      - ./apps/web/postcss.config.mjs:/app/apps/web/postcss.config.mjs
+      - ./apps/web/tsconfig.json:/app/apps/web/tsconfig.json
+      - ./packages/ui/src:/app/packages/ui/src
+      - ./packages/ui/components.json:/app/packages/ui/components.json
+      - ./packages/ui/package.json:/app/packages/ui/package.json
+      - ./packages/ui/tsconfig.json:/app/packages/ui/tsconfig.json
+      - ./package.json:/app/package.json:ro
+      - ./package-lock.json:/app/package-lock.json:ro
+      - web_next:/app/apps/web/.next
+    depends_on:
+      api:
+        condition: service_started
+
   api:
+    container_name: twitch-ladder-api
     build:
       context: ./apps/api
       dockerfile: Dockerfile
     command: ./scripts/start-api.sh
     env_file:
       - .env
+    environment:
+      POSTGRES_HOST: postgres
+      REDIS_HOST: redis
     ports:
       - "8000:8000"
     volumes:
@@ -20,6 +55,7 @@ services:
         condition: service_healthy
 
   postgres:
+    container_name: twitch-ladder-postgres
     image: postgres:17-alpine
     env_file:
       - .env
@@ -34,9 +70,8 @@ services:
       retries: 10
 
   redis:
+    container_name: twitch-ladder-redis
     image: redis:7-alpine
-    ports:
-      - "127.0.0.1:6379:6379"
     volumes:
       - redis_data:/data
     healthcheck:
@@ -46,5 +81,6 @@ services:
       retries: 10
 
 volumes:
+  web_next:
   postgres_data:
   redis_data:
