@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 import { getLadderHref, normalizeTwitchLogin } from "@/shared/lib/routes";
-import { Panel } from "@workspace/ui/components/panel";
+
 
 export function LadderShortcut() {
   const router = useRouter();
@@ -25,7 +25,7 @@ export function LadderShortcut() {
   }
 
   return (
-    <Panel className="relative h-[220px] overflow-hidden">
+    <div className="relative h-[220px] overflow-hidden rounded-[var(--radius-app-panel)] border border-[var(--color-app-border)] bg-[var(--color-app-panel)]">
       <button
         className="absolute left-[29px] top-[29px] h-[160px] w-[940px] overflow-hidden rounded-[25px] border border-[#252525] bg-[#0B0B0B] text-left transition hover:border-[#4C4C4C] hover:bg-[#0B0B0B] active:border-[#9247FF] active:bg-[#12081B] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-app-accent)]"
         onClick={openLadder}
@@ -46,6 +46,6 @@ export function LadderShortcut() {
           ) : null}
         </span>
       </button>
-    </Panel>
+    </div>
   );
 }

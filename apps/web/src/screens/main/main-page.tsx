@@ -5,13 +5,13 @@ import { AppHeader } from "@/shared/ui/app-header/app-header";
 
 export function MainPage() {
   return (
-    <div className="relative min-h-dvh overflow-hidden bg-black">
+    <div className="relative flex min-h-dvh flex-col overflow-hidden bg-black">
       <Background />
 
       <AppHeader />
 
-      <main className="absolute left-1/2 top-[250px] w-[1000px] -translate-x-1/2">
-        <div className="flex flex-col gap-6">
+      <main className="relative flex flex-1 items-center justify-center pt-[100px]">
+        <div className="flex w-[1000px] flex-col gap-6">
           <section className="flex flex-col gap-12">
             <div className="flex flex-col gap-6">
               <p className="flex items-center gap-2 text-2xl font-normal leading-none text-white">

@@ -6,7 +6,7 @@ import { FormEvent, useState } from "react";
 import { CheckCategory, getCategoryHref, normalizeTwitchLogin } from "@/shared/lib/routes";
 import { Button } from "@workspace/ui/components/button";
 import { Input } from "@workspace/ui/components/input";
-import { Panel } from "@workspace/ui/components/panel";
+
 
 const categories: Array<{ value: CheckCategory; label: string }> = [
   { value: "follow", label: "Подписки" },
@@ -40,7 +40,7 @@ export function CheckPanel() {
   }
 
   return (
-    <Panel className="relative h-[302px] overflow-hidden">
+    <div className="relative h-[302px] overflow-hidden rounded-[var(--radius-app-panel)] border border-[var(--color-app-border)] bg-[var(--color-app-panel)]">
       <form className="absolute inset-0" onSubmit={submit}>
         <div className="absolute left-[29px] top-[29px] flex w-[940px] items-center gap-5">
           <div className="relative h-[77px] w-[730px] shrink-0">
@@ -102,6 +102,6 @@ export function CheckPanel() {
           })}
         </div>
       </form>
-    </Panel>
+    </div>
   );
 }
