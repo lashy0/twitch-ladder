@@ -1,0 +1,11 @@
+{
+  "name": "twitch-ladder",
+  "private": true,
+  "workspaces": ["apps/web", "packages/ui"],
+  "scripts": {
+    "web:dev": "npm run dev -w @twitch-ladder/web",
+    "web:build": "npm run build -w @twitch-ladder/web",
+    "web:lint": "npm run lint -w @twitch-ladder/web",
+    "web:typecheck": "npm run typecheck -w @twitch-ladder/web"
+  }
+}
