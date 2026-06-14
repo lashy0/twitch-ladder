@@ -3,7 +3,7 @@ import { Button } from "@workspace/ui/components/button";
 export function AppHeader() {
   return (
     <header className="absolute left-0 top-0 h-[100px] w-full border-b border-[#252525] bg-black/85 backdrop-blur-[25px]">
-      <div className="mx-auto flex h-full w-full max-w-[1920px] items-center justify-between px-6">
+      <div className="flex h-full w-full items-center justify-between px-6">
         <a
           className="flex h-[41px] min-w-0 items-center gap-3 text-white"
           href="/"

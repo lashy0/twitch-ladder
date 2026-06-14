@@ -5,8 +5,8 @@ import { FormEvent, useState } from "react";
 
 import { CheckCategory, getCategoryHref, normalizeTwitchLogin } from "@/shared/lib/routes";
 import { Button } from "@workspace/ui/components/button";
+import { Input } from "@workspace/ui/components/input";
 import { Panel } from "@workspace/ui/components/panel";
-import { TextInput } from "@workspace/ui/components/text-input";
 
 const categories: Array<{ value: CheckCategory; label: string }> = [
   { value: "follow", label: "Подписки" },
@@ -44,7 +44,7 @@ export function CheckPanel() {
       <form className="absolute inset-0" onSubmit={submit}>
         <div className="absolute left-[29px] top-[29px] flex w-[940px] items-center gap-5">
           <div className="relative h-[77px] w-[730px] shrink-0">
-            <TextInput
+            <Input
               className="h-[77px] w-[730px] rounded-full border border-[#252525] bg-[#0B0B0B] px-[34px] !text-2xl !font-medium !leading-normal placeholder:!text-2xl placeholder:!font-medium placeholder:text-[#707070] focus:border-[#252525]"
               aria-describedby={error ? "nickname-error" : undefined}
               aria-invalid={Boolean(error)}
