@@ -1,23 +1,25 @@
 # Twitch Ladder API
 
-Backend API for the Twitch Ladder application.
+FastAPI backend for Twitch Ladder.
 
-## Project Structure
+## Stack
 
+- FastAPI, Pydantic v2
+- Async SQLAlchemy, Alembic
+- PostgreSQL, Redis
+- `httpx` for Twitch clients
+- Ruff, mypy, pytest
+
+## Commands
+
+Run from `apps/api`:
+
+```bash
+uv run fastapi dev app/main.py
+uv run alembic upgrade head
+uv run ruff check .
+uv run mypy .
+uv run pytest
 ```
-api/
-├── app
-│   ├── api/           # API routes and endpoints
-│   ├── core/          # Core application logic and utilities
-│   ├── db/            # Database configuration and session management
-│   ├── integrations/  # Integrations with external services
-│   ├── models/        # SQLAlchemy database models
-│   ├── repositories/  # Database access layer and queries
-│   ├── schemas/       # Pydantic schemas
-│   ├── services/      # Business logic and application use cases
-│   └── main.py        # FastAPI application entry point
-├── docs/              # API documentation
-├── migrations/        # Alembic database migrations
-├── scripts/           # Utility scripts
-└── tests/             # Test suite
-```
+
+See `docs/` for architecture and data model notes.
