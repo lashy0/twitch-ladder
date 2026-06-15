@@ -16,5 +16,5 @@
     "lib": "@/shared/lib",
     "hooks": "@/shared/hooks"
   },
-  "iconLibrary": "none"
+  "iconLibrary": "lucide"
 }
