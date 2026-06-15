@@ -1,8 +1,14 @@
 from fastapi import APIRouter
 
-from app.api.v1.routes import channels, health, ladder, scan_jobs, videos
+from app.api.v1.routes import auth, channels, health, ladder, scan_jobs, videos
 
 router = APIRouter()
+
+router.include_router(
+    auth.router,
+    prefix="/auth",
+    tags=["auth"],
+)
 
 router.include_router(
     channels.router,

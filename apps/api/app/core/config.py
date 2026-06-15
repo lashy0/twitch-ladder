@@ -14,6 +14,7 @@ class Settings(BaseSettings):
     DEBUG: bool = False
 
     API_V1_PREFIX: str = "/api/v1"
+    WEB_APP_BASE_URL: str = "http://localhost:3000"
 
     # CORS
     CORS_ALLOW_ORIGINS: list[str] = ["http://localhost:3000"]
@@ -45,6 +46,18 @@ class Settings(BaseSettings):
     TWITCH_GQL_URL: str = "https://gql.twitch.tv/gql"
     TWITCH_GQL_CLIENT_ID: str = ""
     TWITCH_HTTP_TIMEOUT_SECONDS: float = 10.0
+    TWITCH_OAUTH_REDIRECT_URI: str = (
+        "http://localhost:8000/api/v1/auth/twitch/callback"
+    )
+    TWITCH_OAUTH_SCOPES: list[str] = []
+
+    # Auth cookies
+    AUTH_SESSION_SECRET: SecretStr = SecretStr("")
+    AUTH_COOKIE_NAME: str = "twitch_ladder_session"
+    AUTH_COOKIE_MAX_AGE_SECONDS: int = 60 * 60 * 24 * 14
+    AUTH_COOKIE_SECURE: bool = False
+    AUTH_JWT_ISSUER: str = "twitch-ladder-api"
+    AUTH_JWT_AUDIENCE: str = "twitch-ladder-web"
 
     @property
     def database_url(self) -> PostgresDsn:
