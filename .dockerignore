@@ -1,6 +1,12 @@
 .git
 .next
 node_modules
+**/__pycache__
+**/.mypy_cache
+**/.pytest_cache
+**/.ruff_cache
+**/.venv
+**/*.pyc
 apps/*/node_modules
 apps/*/.next
 packages/*/node_modules
