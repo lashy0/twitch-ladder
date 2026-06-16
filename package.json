@@ -3,6 +3,7 @@
   "private": true,
   "workspaces": ["apps/web", "packages/ui"],
   "scripts": {
+    "api:types": "node scripts/generate-api-types.mjs",
     "web:dev": "npm run dev -w @twitch-ladder/web",
     "web:build": "npm run build -w @twitch-ladder/web",
     "web:lint": "npm run lint -w @twitch-ladder/web",

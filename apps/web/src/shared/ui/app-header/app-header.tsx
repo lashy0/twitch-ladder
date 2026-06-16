@@ -5,6 +5,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import type { FormEvent } from "react";
 
+import { getApiClient } from "@/shared/api/client";
 import { getApiUrl } from "@/shared/lib/api";
 import { getCategoryHref, getLadderHref, normalizeTwitchLogin } from "@/shared/lib/routes";
 
@@ -31,14 +32,15 @@ export function AppHeader() {
 
     async function loadSession() {
       try {
-        const response = await fetch(getApiUrl("/api/v1/auth/me"), {
+        const { data: nextSession } = await getApiClient().GET("/auth/me", {
           credentials: "include",
         });
-        if (!response.ok) return;
-
-        const nextSession = (await response.json()) as AuthSession;
+        if (!nextSession) return;
         if (!ignore) {
-          setSession(nextSession);
+          setSession({
+            authenticated: nextSession.authenticated,
+            user: nextSession.user ?? null,
+          });
           if (nextSession.user) setNickname(nextSession.user.login);
         }
       } catch {
@@ -59,9 +61,8 @@ export function AppHeader() {
   async function logout() {
     setIsLoggingOut(true);
     try {
-      await fetch(getApiUrl("/api/v1/auth/logout"), {
+      await getApiClient().POST("/auth/logout", {
         credentials: "include",
-        method: "POST",
       });
       setSession({ authenticated: false, user: null });
       setNickname("");
@@ -78,8 +79,7 @@ export function AppHeader() {
       return;
     }
 
-    const href =
-      category === "ladder" ? getLadderHref(login) : getCategoryHref(category, login);
+    const href = category === "ladder" ? getLadderHref(login) : getCategoryHref(category, login);
     setIsOpen(false);
     router.push(href);
   }
@@ -93,7 +93,7 @@ export function AppHeader() {
   }
 
   return (
-    <header className="pointer-events-auto fixed left-0 top-0 z-[100] h-[100px] w-full border-b border-[#252525] bg-black/85 backdrop-blur-[25px]">
+    <header className="pointer-events-auto fixed left-0 top-0 z-[100] h-[100px] w-full border-b border-solid border-[#252525] bg-black/85 backdrop-blur-[25px]">
       <div className="flex h-full w-full items-center justify-between px-6">
         <a
           className="flex h-[41px] min-w-0 cursor-pointer items-center gap-3 text-white"
@@ -103,12 +103,12 @@ export function AppHeader() {
           <span className="flex h-8 w-[30px] shrink-0 items-center justify-center">
             <img src="/icons/logo.svg" alt="" width="30" height="32" />
           </span>
-          <span className="truncate text-[32px] font-semibold leading-[39px] tracking-normal">
+          <span className="h-[39px] w-[221px] whitespace-nowrap text-[32px] font-semibold leading-[39px] tracking-normal">
             Twitch Ladder
           </span>
         </a>
 
-        <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
+        <DropdownMenu modal={false} open={isOpen} onOpenChange={setIsOpen}>
           <HeaderMenuControl
             isOpen={isOpen}
             user={user}

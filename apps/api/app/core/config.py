@@ -44,7 +44,8 @@ class Settings(BaseSettings):
     TWITCH_AUTH_BASE_URL: str = "https://id.twitch.tv"
     TWITCH_HELIX_BASE_URL: str = "https://api.twitch.tv/helix"
     TWITCH_GQL_URL: str = "https://gql.twitch.tv/gql"
-    TWITCH_GQL_CLIENT_ID: str = ""
+    TWITCH_GQL_CLIENT_ID: str = "kimne78kx3ncx6brgo4mv6wki5h1ko"
+    TWITCH_GQL_FALLBACK_CLIENT_ID: str = "kd1unb4b3q4t58fwlpcbzcbnm76a8fp"
     TWITCH_HTTP_TIMEOUT_SECONDS: float = 10.0
     TWITCH_OAUTH_REDIRECT_URI: str = (
         "http://localhost:8000/api/v1/auth/twitch/callback"

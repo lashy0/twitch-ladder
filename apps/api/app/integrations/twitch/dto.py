@@ -32,3 +32,27 @@ class TwitchVideoPage:
 
     items: list[TwitchVideoData]
     cursor: str | None
+
+
+@dataclass(frozen=True, slots=True)
+class TwitchFollowData:
+    """Normalized channel followed by a Twitch user."""
+
+    twitch_id: str
+    login: str
+    display_name: str
+    avatar_url: str | None
+    created_at: datetime | None
+    followed_at: datetime | None
+    language: str | None
+
+
+@dataclass(frozen=True, slots=True)
+class TwitchFollowPage:
+    """One page of public Twitch follow data."""
+
+    channel: TwitchUserData
+    items: list[TwitchFollowData]
+    total: int
+    followers_total: int | None
+    cursor: str | None

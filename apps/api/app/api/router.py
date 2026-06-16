@@ -8,5 +8,4 @@ router = APIRouter()
 router.include_router(
     v1_router,
     prefix=settings.API_V1_PREFIX,
-    tags=["v1"],
 )

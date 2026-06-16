@@ -1,14 +1,7 @@
-import Link from "next/link";
+import { FollowPage } from "@/screens/follow/follow-page";
 
-export default async function FollowPage({ params }: { params: Promise<{ login: string }> }) {
+export default async function FollowRoute({ params }: { params: Promise<{ login: string }> }) {
   const { login } = await params;
 
-  return (
-    <main className="min-h-dvh bg-[var(--color-app-bg)] p-8 text-white">
-      <Link className="text-[var(--color-app-accent)]" href="/">
-        На главную
-      </Link>
-      <h1 className="mt-8 text-3xl font-semibold">Подписки: @{decodeURIComponent(login)}</h1>
-    </main>
-  );
+  return <FollowPage login={decodeURIComponent(login)} />;
 }

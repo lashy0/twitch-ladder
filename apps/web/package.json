@@ -14,9 +14,11 @@
   },
   "dependencies": {
     "@fontsource/inter": "^5.2.8",
+    "@tanstack/react-table": "^8.21.3",
     "@workspace/ui": "file:../../packages/ui",
     "lucide-react": "^1.18.0",
     "next": "^15.5.19",
+    "openapi-fetch": "^0.17.0",
     "react": "^19.2.1",
     "react-dom": "^19.2.1"
   },
@@ -25,6 +27,7 @@
     "@types/node": "^24.10.1",
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
+    "openapi-typescript": "^7.13.0",
     "oxfmt": "^0.17.0",
     "oxlint": "^1.28.0",
     "tailwindcss": "^4.1.18",

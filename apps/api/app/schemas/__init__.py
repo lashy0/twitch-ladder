@@ -1,5 +1,6 @@
 from app.schemas.auth import AuthSessionRead, AuthUserRead
 from app.schemas.channel import ChannelRead, ChannelSummary
+from app.schemas.follow import FollowList, FollowRead, FollowRegionRead
 from app.schemas.ladder import LadderEntry, LadderRead
 from app.schemas.scan_job import ScanJobRead
 from app.schemas.video import VideoList, VideoRead
@@ -10,6 +11,9 @@ __all__ = [
     "AuthUserRead",
     "ChannelRead",
     "ChannelSummary",
+    "FollowList",
+    "FollowRead",
+    "FollowRegionRead",
     "LadderEntry",
     "LadderRead",
     "ScanJobRead",

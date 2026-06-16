@@ -1,7 +1,6 @@
 import { Button } from "@workspace/ui/components/button";
 import { DropdownMenuTrigger } from "@workspace/ui/components/dropdown-menu";
 import { cn } from "@workspace/ui/lib/utils";
-import { MenuIcon } from "lucide-react";
 
 import type { AuthUser } from "./types";
 
@@ -67,7 +66,7 @@ export function HeaderMenuControl({
             aria-label={isOpen ? "Закрыть меню" : "Открыть меню"}
             type="button"
           >
-            <MenuIcon aria-hidden="true" strokeWidth={3} />
+            <img aria-hidden="true" className="size-10" src="/icons/burger-menu.svg" alt="" />
           </Button>
         </DropdownMenuTrigger>
       </div>

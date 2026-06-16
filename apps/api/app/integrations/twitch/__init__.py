@@ -5,6 +5,7 @@ from app.integrations.twitch.exceptions import (
     TwitchAuthError,
     TwitchIntegrationError,
 )
+from app.integrations.twitch.follows import TwitchFollowClient
 from app.integrations.twitch.graphql import TwitchGraphQLClient
 from app.integrations.twitch.helix import TwitchHelixClient
 
@@ -12,6 +13,7 @@ __all__ = [
     "TwitchApiError",
     "TwitchAppTokenProvider",
     "TwitchAuthError",
+    "TwitchFollowClient",
     "TwitchGraphQLClient",
     "TwitchHelixClient",
     "TwitchIntegrationError",

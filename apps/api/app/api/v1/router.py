@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 
-from app.api.v1.routes import auth, channels, health, ladder, scan_jobs, videos
+from app.api.v1.routes import auth, channels, follows, health, ladder, scan_jobs, videos
 
 router = APIRouter()
 
@@ -20,6 +20,11 @@ router.include_router(
     health.router,
     prefix="/health",
     tags=["health"],
+)
+
+router.include_router(
+    follows.router,
+    tags=["follows"],
 )
 
 router.include_router(
