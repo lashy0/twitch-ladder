@@ -5,7 +5,8 @@ services:
       context: .
       dockerfile: apps/web/Dockerfile
       target: dev
-    command: npm run web:dev
+    working_dir: /app/apps/web
+    command: npm run dev
     environment:
       API_INTERNAL_BASE_URL: "http://api:8000"
       NEXT_PUBLIC_API_BASE_URL: "http://localhost:8000"
@@ -21,12 +22,6 @@ services:
       - ./apps/web/package.json:/app/apps/web/package.json
       - ./apps/web/postcss.config.mjs:/app/apps/web/postcss.config.mjs
       - ./apps/web/tsconfig.json:/app/apps/web/tsconfig.json
-      - ./packages/ui/src:/app/packages/ui/src
-      - ./packages/ui/components.json:/app/packages/ui/components.json
-      - ./packages/ui/package.json:/app/packages/ui/package.json
-      - ./packages/ui/tsconfig.json:/app/packages/ui/tsconfig.json
-      - ./package.json:/app/package.json:ro
-      - ./package-lock.json:/app/package-lock.json:ro
       - web_next:/app/apps/web/.next
     depends_on:
       api:

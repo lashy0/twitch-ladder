@@ -4,8 +4,8 @@ import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
 
 import { CheckCategory, getCategoryHref, normalizeTwitchLogin } from "@/shared/lib/routes";
-import { Button } from "@workspace/ui/components/button";
-import { Input } from "@workspace/ui/components/input";
+import { Button } from "@/components/button";
+import { Input } from "@/components/input";
 
 
 const categories: Array<{ value: CheckCategory; label: string }> = [

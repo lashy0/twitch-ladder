@@ -1,11 +1,11 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@workspace/ui/components/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/avatar";
 import {
   Card,
   CardContent,
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@workspace/ui/components/card";
+} from "@/components/card";
 import type { ReactNode } from "react";
 
 export type ChannelProfileCardChannel = {

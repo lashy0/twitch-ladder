@@ -39,6 +39,7 @@ Web opens at `http://localhost:3000`, API at `http://localhost:8000`.
 For local Node development without Docker:
 
 ```bash
+cd apps/web
 npm install
-npm run web:dev
+npm run dev
 ```

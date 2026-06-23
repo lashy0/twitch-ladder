@@ -6,7 +6,7 @@ Next.js frontend for Twitch Ladder.
 
 - Next.js App Router, React, TypeScript
 - Tailwind CSS v4
-- Shared UI from `@workspace/ui`
+- Shared UI from `@/components`
 - Oxlint and Oxfmt
 
 ## Commands

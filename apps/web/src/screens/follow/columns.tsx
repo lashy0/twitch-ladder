@@ -1,7 +1,7 @@
 "use client";
 
 import type { ColumnDef } from "@tanstack/react-table";
-import { Avatar, AvatarFallback, AvatarImage } from "@workspace/ui/components/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/avatar";
 
 import type { Follow } from "./types";
 

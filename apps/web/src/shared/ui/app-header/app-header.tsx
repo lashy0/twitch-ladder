@@ -1,6 +1,6 @@
 "use client";
 
-import { DropdownMenu } from "@workspace/ui/components/dropdown-menu";
+import { DropdownMenu } from "@/components/dropdown-menu";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import type { FormEvent } from "react";

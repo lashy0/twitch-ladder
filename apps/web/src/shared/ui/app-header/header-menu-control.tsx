@@ -1,6 +1,6 @@
-import { Button } from "@workspace/ui/components/button";
-import { DropdownMenuTrigger } from "@workspace/ui/components/dropdown-menu";
-import { cn } from "@workspace/ui/lib/utils";
+import { Button } from "@/components/button";
+import { DropdownMenuTrigger } from "@/components/dropdown-menu";
+import { cn } from "@/lib/utils";
 
 import type { AuthUser } from "./types";
 

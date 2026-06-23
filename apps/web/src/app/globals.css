@@ -2,8 +2,6 @@
 @import "@fontsource/inter/500.css";
 @import "@fontsource/inter/600.css";
 @import "tailwindcss";
-@import "@workspace/ui/globals.css";
+@import "../styles/globals.css";
 
-/* Make Tailwind v4 scan both the web app and the shared UI package. */
 @source "../../**/*.{js,ts,jsx,tsx,mdx}";
-@source "../../../../packages/ui/src/**/*.{js,ts,jsx,tsx,mdx}";

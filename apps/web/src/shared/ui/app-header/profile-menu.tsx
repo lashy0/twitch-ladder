@@ -3,7 +3,7 @@ import {
   DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuSeparator,
-} from "@workspace/ui/components/dropdown-menu";
+} from "@/components/dropdown-menu";
 import { LogOutIcon } from "lucide-react";
 
 import { menuContentSideOffset } from "./types";

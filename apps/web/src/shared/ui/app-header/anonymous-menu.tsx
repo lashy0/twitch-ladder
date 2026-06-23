@@ -3,8 +3,8 @@ import {
   DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuSeparator,
-} from "@workspace/ui/components/dropdown-menu";
-import { cn } from "@workspace/ui/lib/utils";
+} from "@/components/dropdown-menu";
+import { cn } from "@/lib/utils";
 import { ArrowRightIcon } from "lucide-react";
 import type { FormEvent } from "react";
 

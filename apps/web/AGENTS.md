@@ -9,7 +9,7 @@
 
 - Next.js App Router with React and TypeScript.
 - Tailwind CSS v4.
-- Shared components come from `@workspace/ui`.
+- Shared components come from `@/components`.
 - Formatting and linting use Oxfmt and Oxlint.
 
 ## Implementation Rules
@@ -17,7 +17,7 @@
 - Do not call Twitch directly from the frontend. Add product data flows through `apps/api`.
 - Keep route files thin; put screen composition under `src/screens` and reusable pieces under `src/shared`.
 - Use `@/` for imports inside `apps/web/src`.
-- Prefer existing `@workspace/ui` components before adding custom controls.
+- Prefer existing `@/components` components before adding custom controls.
 - Keep user-facing copy in Russian unless the surrounding screen already uses another language.
 - Keep generated or mockup-specific assets in `public/`; do not inline large SVGs or image data into components.
 

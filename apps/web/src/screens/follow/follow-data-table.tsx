@@ -8,16 +8,16 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import type { ColumnFiltersState, SortingState } from "@tanstack/react-table";
-import { Button } from "@workspace/ui/components/button";
-import { Empty, EmptyHeader, EmptyTitle } from "@workspace/ui/components/empty";
+import { Button } from "@/components/button";
+import { Empty, EmptyHeader, EmptyTitle } from "@/components/empty";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@workspace/ui/components/dropdown-menu";
-import { Input } from "@workspace/ui/components/input";
+} from "@/components/dropdown-menu";
+import { Input } from "@/components/input";
 import {
   Table,
   TableBody,
@@ -25,8 +25,8 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@workspace/ui/components/table";
-import { cn } from "@workspace/ui/lib/utils";
+} from "@/components/table";
+import { cn } from "@/lib/utils";
 import { ChevronDownIcon, FilterIcon } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import type { ComponentProps } from "react";
