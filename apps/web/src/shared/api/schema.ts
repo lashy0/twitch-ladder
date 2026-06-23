@@ -140,6 +140,23 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
+    "/channels/{login}/roles": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List Channel Roles */
+        get: operations["list_channel_roles_api_v1_channels__login__roles_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/channels/{login}/ladder": {
         parameters: {
             query?: never;
@@ -340,6 +357,49 @@ export type components = {
             unique_chatters: number;
             /** Items */
             items: components["schemas"]["LadderEntry"][];
+        };
+        /**
+         * RoleCategory
+         * @enum {string}
+         */
+        RoleCategory: "mods" | "vips" | "founders" | "artists";
+        /** RoleList */
+        RoleList: {
+            channel: components["schemas"]["ChannelRead"];
+            /** Items */
+            items: components["schemas"]["RoleRead"][];
+            /** Total */
+            total: number;
+            /** Followers Total */
+            followers_total: number | null;
+            /** Follows Total */
+            follows_total: number | null;
+            /** Stats */
+            stats: components["schemas"]["RoleStatRead"][];
+        };
+        /** RoleRead */
+        RoleRead: {
+            /** Twitch Id */
+            twitch_id: string;
+            /** Login */
+            login: string;
+            /** Display Name */
+            display_name: string;
+            /** Avatar Url */
+            avatar_url: string | null;
+            category: components["schemas"]["RoleCategory"];
+            /** Granted At */
+            granted_at: string | null;
+            /** Twitch Created At */
+            twitch_created_at: string | null;
+        };
+        /** RoleStatRead */
+        RoleStatRead: {
+            category: components["schemas"]["RoleCategory"];
+            /** Count */
+            count: number;
+            /** Percent */
+            percent: number;
         };
         /** ScanJobRead */
         ScanJobRead: {
@@ -654,6 +714,37 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["FollowList"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    list_channel_roles_api_v1_channels__login__roles_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                login: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["RoleList"];
                 };
             };
             /** @description Validation Error */

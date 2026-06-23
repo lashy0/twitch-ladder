@@ -1,0 +1,218 @@
+"use client";
+
+import {
+  flexRender,
+  getCoreRowModel,
+  getFilteredRowModel,
+  getSortedRowModel,
+  useReactTable,
+} from "@tanstack/react-table";
+import type { ColumnFiltersState, SortingState } from "@tanstack/react-table";
+import { Button } from "@workspace/ui/components/button";
+import { Empty, EmptyHeader, EmptyTitle } from "@workspace/ui/components/empty";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@workspace/ui/components/dropdown-menu";
+import { Input } from "@workspace/ui/components/input";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@workspace/ui/components/table";
+import { cn } from "@workspace/ui/lib/utils";
+import { ChevronDownIcon, FilterIcon } from "lucide-react";
+import { useState } from "react";
+import type { ComponentProps } from "react";
+
+import { roleColumns } from "./columns";
+import { getRoleLabel, roleAccent, roleCategories } from "./mock-data";
+import type { RoleCategory, RoleEntry } from "./types";
+
+type DateOrder = "new" | "old";
+
+export function RolesDataTable({
+  data,
+  activeCategory,
+  onCategoryChange,
+}: {
+  data: RoleEntry[];
+  activeCategory: RoleCategory;
+  onCategoryChange: (category: RoleCategory) => void;
+}) {
+  const [search, setSearch] = useState("");
+  const [dateOrder, setDateOrder] = useState<DateOrder>("new");
+  const [sorting, setSorting] = useState<SortingState>([{ id: "grantedAt", desc: true }]);
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
+
+  const table = useReactTable({
+    data,
+    columns: roleColumns,
+    state: {
+      globalFilter: search,
+      sorting,
+      columnFilters,
+    },
+    onGlobalFilterChange: setSearch,
+    onSortingChange: setSorting,
+    onColumnFiltersChange: setColumnFilters,
+    globalFilterFn: (row, _columnId, value) => {
+      const query = String(value).trim().toLocaleLowerCase("ru-RU");
+      if (!query) return true;
+      return `${row.original.displayName} ${row.original.login}`
+        .toLocaleLowerCase("ru-RU")
+        .includes(query);
+    },
+    getCoreRowModel: getCoreRowModel(),
+    getFilteredRowModel: getFilteredRowModel(),
+    getSortedRowModel: getSortedRowModel(),
+  });
+
+  function changeDateOrder(value: DateOrder) {
+    setDateOrder(value);
+    setSorting([{ id: "grantedAt", desc: value === "new" }]);
+  }
+
+  return (
+    <div className="flex min-w-0 flex-col gap-3">
+      <div className="flex items-center gap-3">
+        <Input
+          className="h-[50px] w-[400px] rounded-full border-[#252525] px-6 !text-lg font-medium shadow-none placeholder:font-medium placeholder:text-[#707070] focus-visible:border-[#252525] focus-visible:ring-0 md:!text-lg"
+          placeholder="Поиск"
+          value={search}
+          onChange={(event) => setSearch(event.target.value)}
+        />
+
+        <DropdownMenu modal={false}>
+          <DropdownMenuTrigger asChild>
+            <Button className="h-[50px] rounded-full px-6 text-lg" variant="outline">
+              <FilterIcon data-icon="inline-start" />
+              {dateOrder === "new" ? "Новые" : "Старые"}
+              <ChevronDownIcon data-icon="inline-end" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent
+            align="start"
+            className="w-[185px] rounded-[20px] border-[#252525] bg-[#0b0b0b] p-3"
+            sideOffset={12}
+          >
+            <DropdownMenuGroup>
+              <FilterItem active={dateOrder === "new"} onSelect={() => changeDateOrder("new")}>
+                Новые
+              </FilterItem>
+              <FilterItem active={dateOrder === "old"} onSelect={() => changeDateOrder("old")}>
+                Старые
+              </FilterItem>
+            </DropdownMenuGroup>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
+
+      <div className="h-[870px] overflow-auto rounded-[15px] border border-[#252525] bg-[#0b0b0b] [scrollbar-width:none] [&>[data-slot=table-container]]:overflow-visible [&::-webkit-scrollbar]:hidden">
+        <div className="sticky top-0 z-10 border-b border-[#252525] bg-[#0b0b0b] px-3 pb-3 pt-3">
+          <div className="grid grid-cols-4 gap-3">
+            {roleCategories.map((category) => {
+              const active = category === activeCategory;
+              const accent = roleAccent[category];
+              return (
+                <button
+                  className={cn(
+                    "h-[50px] rounded-[15px] border border-[#252525] bg-[#0b0b0b] px-6 text-lg font-medium text-[#707070]",
+                    active && accent.border,
+                    active && accent.surface,
+                    active && "text-white",
+                  )}
+                  key={category}
+                  type="button"
+                  onClick={() => onCategoryChange(category)}
+                >
+                  {getRoleLabel(category)}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        <Table className="w-[1460px] min-w-[1460px] table-fixed border-separate border-spacing-0 text-lg">
+          <TableHeader className="[&_tr]:border-[#252525]">
+            {table.getHeaderGroups().map((headerGroup) => (
+              <TableRow
+                className="h-[54px] border-[#252525] hover:bg-transparent"
+                key={headerGroup.id}
+              >
+                {headerGroup.headers.map((header) => (
+                  <TableHead
+                    className="sticky top-[75px] z-10 h-[54px] bg-[#0b0b0b] p-0 pl-6 pt-[15px] align-top text-lg font-medium leading-normal text-white shadow-[inset_0_-1px_0_#252525]"
+                    key={header.id}
+                    style={{ width: header.getSize() }}
+                  >
+                    {header.isPlaceholder
+                      ? null
+                      : flexRender(header.column.columnDef.header, header.getContext())}
+                  </TableHead>
+                ))}
+              </TableRow>
+            ))}
+          </TableHeader>
+          <TableBody>
+            {table.getRowModel().rows.length ? (
+              table.getRowModel().rows.map((row, rowIndex) => (
+                <TableRow
+                  className="h-[82px] border-0 align-top hover:bg-transparent [&:hover>td]:bg-[#101013] [&>td]:h-[66px] [&>td]:border-b [&>td]:border-[#252525]"
+                  key={row.id}
+                >
+                  {row.getVisibleCells().map((cell) => (
+                    <TableCell
+                      className={cn(
+                        "px-6 font-normal",
+                        cell.column.id === "number" && "font-medium",
+                      )}
+                      key={cell.id}
+                    >
+                      {cell.column.id === "number"
+                        ? rowIndex + 1
+                        : flexRender(cell.column.columnDef.cell, cell.getContext())}
+                    </TableCell>
+                  ))}
+                </TableRow>
+              ))
+            ) : (
+              <TableRow>
+                <TableCell className="h-56 p-0" colSpan={roleColumns.length}>
+                  <Empty className="border-0 p-6">
+                    <EmptyHeader>
+                      <EmptyTitle className="text-[#707070]">Ничего не найдено</EmptyTitle>
+                    </EmptyHeader>
+                  </Empty>
+                </TableCell>
+              </TableRow>
+            )}
+          </TableBody>
+        </Table>
+      </div>
+    </div>
+  );
+}
+
+function FilterItem({
+  active,
+  className,
+  ...props
+}: ComponentProps<typeof DropdownMenuItem> & { active: boolean }) {
+  return (
+    <DropdownMenuItem
+      className={cn(
+        "h-[46px] rounded-[10px] px-3 text-lg text-[#707070] focus:bg-[#1f1f1f] focus:text-white",
+        active && "text-white",
+        className,
+      )}
+      {...props}
+    />
+  );
+}

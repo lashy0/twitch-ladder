@@ -1,6 +1,7 @@
 "use client";
 
 import { getApiClient } from "@/shared/api/client";
+import { ChannelMetricCard } from "@/shared/ui/channel-card";
 import { useCallback, useState } from "react";
 import type { ReactNode } from "react";
 
@@ -55,7 +56,7 @@ export function FollowResults({
 
   return (
     <main className="mx-auto flex w-full max-w-[1920px] items-start gap-3 px-6 pb-9 pt-[124px]">
-      <aside className="w-[400px] shrink-0">
+      <aside className="flex w-[400px] shrink-0 flex-col gap-3">
         {profile}
         <RegionsCard regions={regions} />
       </aside>
@@ -71,45 +72,19 @@ export function FollowResults({
   );
 }
 
-function RegionsCard({
-  regions,
-}: {
-  regions: FollowResponse["regions"];
-}) {
+function RegionsCard({ regions }: { regions: FollowResponse["regions"] }) {
   return (
-    <section className="mt-3 h-[457px] overflow-hidden rounded-[15px] border border-[#252525] bg-[#0b0b0b]">
-      <header className="flex h-[70px] items-center justify-between border-b border-[#252525] px-[23px] text-lg">
-        <h2 className="font-medium">Регионы фолловов</h2>
-        <span className="text-[#707070]">{regions.length.toLocaleString("ru-RU")}</span>
-      </header>
-      <div className="flex flex-col gap-6 px-[23px] py-[23px]">
-        {regions.slice(0, 5).map((region, index) => {
-          const percent = region.percent;
-          return (
-            <div key={region.language}>
-              <div className="flex items-center justify-between gap-4 text-lg">
-                <span className="truncate font-medium">
-                  {languageEmoji(region.language)} {languageLabel(region.language)}
-                </span>
-                <span className="shrink-0 text-[#707070]">
-                  {region.count.toLocaleString("ru-RU")} ({percent}%)
-                </span>
-              </div>
-              <div className="mt-2 h-2 overflow-hidden rounded-full bg-[#18181b]">
-                <div
-                  className={
-                    index === 0
-                      ? "h-full rounded-full bg-[#9247ff]"
-                      : "h-full rounded-full bg-[#707070]"
-                  }
-                  style={{ width: `${Math.max(2, percent)}%` }}
-                />
-              </div>
-            </div>
-          );
-        })}
-      </div>
-    </section>
+    <ChannelMetricCard
+      title="Регионы фолловов"
+      titleMeta={regions.length.toLocaleString("ru-RU")}
+      items={regions.slice(0, 5).map((region, index) => ({
+        id: region.language,
+        label: `${languageEmoji(region.language)} ${languageLabel(region.language)}`,
+        value: `${region.count.toLocaleString("ru-RU")} (${region.percent}%)`,
+        percent: region.percent,
+        lineClassName: index === 0 ? "bg-[#9247ff]" : "bg-[#707070]",
+      }))}
+    />
   );
 }
 
