@@ -8,6 +8,12 @@ from app.integrations.twitch.exceptions import (
 from app.integrations.twitch.follows import TwitchFollowClient
 from app.integrations.twitch.graphql import TwitchGraphQLClient
 from app.integrations.twitch.helix import TwitchHelixClient
+from app.integrations.twitch.roles import (
+    TwitchRoleCategory,
+    TwitchRoleClient,
+    TwitchRoleData,
+    TwitchRolePage,
+)
 
 __all__ = [
     "TwitchApiError",
@@ -17,6 +23,10 @@ __all__ = [
     "TwitchGraphQLClient",
     "TwitchHelixClient",
     "TwitchIntegrationError",
+    "TwitchRoleCategory",
+    "TwitchRoleClient",
+    "TwitchRoleData",
+    "TwitchRolePage",
     "TwitchUserData",
     "TwitchVideoData",
     "TwitchVideoPage",
